@@ -1,3 +1,15 @@
-from django.shortcuts import render
+from rest_framework import generics
+from .models import Article, Comment
+# Local apps
+from . import serializers
 
-# Create your views here.
+
+
+class ArticleListView(generics.ListAPIView):
+    queryset = Article.objects.all()
+    serializer_class = serializers.ArticleListSerializer
+
+
+class ArticleDetailView(generics.RetrieveDestroyAPIView):
+    queryset = Article.objects.all()
+    serializer_class = serializers.ArticleListSerializer
