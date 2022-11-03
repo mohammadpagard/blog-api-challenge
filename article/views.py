@@ -1,3 +1,4 @@
+# DRF packages
 from rest_framework import generics
 from .models import Article, Comment
 # Local apps
