@@ -3,6 +3,8 @@ from .models import Article, Comment
 
 
 class ArticleListSerializer(serializers.ModelSerializer):
+    owner = serializers.StringRelatedField(read_only=True)
+
     class Meta:
         model = Article
         exclude = ('id', 'body', 'updated')
@@ -10,6 +12,7 @@ class ArticleListSerializer(serializers.ModelSerializer):
 
 class ArticleDetailSerializer(serializers.ModelSerializer):
     comment = serializers.SerializerMethodField()
+    owner = serializers.StringRelatedField(read_only=True)
 
     class Meta:
         model = Article
@@ -21,6 +24,17 @@ class ArticleDetailSerializer(serializers.ModelSerializer):
 
 
 class CommentSerializer(serializers.ModelSerializer):
+    owner = serializers.StringRelatedField(read_only=True)
+
     class Meta:
         model = Comment
         fields = ['owner', 'body']
+
+
+class CommentDetailSerializer(serializers.ModelSerializer):
+    owner = serializers.StringRelatedField(read_only=True)
+    article = serializers.StringRelatedField(read_only=True)
+
+    class Meta:
+        model = Comment
+        fields = '__all__'
